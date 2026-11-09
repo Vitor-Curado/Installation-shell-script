@@ -13,17 +13,20 @@ RPM_REPOS=(
 
 PACKAGES=(
     gcc
+    gcc-c++
+    gcc-aarch64-linux-gnu
+    qemu-user-static
     zoxide
-    keepassxc
     nodejs
     code 
     neovim
     postgresql
     postgresql-server
-    gcc-c++
     steam
     brave-browser
-
+    copyq
+    keepassxc
+    foliate
 )
 
 # ------
