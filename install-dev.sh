@@ -12,21 +12,40 @@ RPM_REPOS=(
 )
 
 PACKAGES=(
+    # Development toolchain
     gcc
     gcc-c++
     gcc-aarch64-linux-gnu
     qemu-user-static
+    qemu-user-binfmt
+
+    # Development utilities
     zoxide
     nodejs
     code 
     neovim
+
+    # LaTeX
+    latexmk
+    texlive-scheme-full
+
+    # Database
     postgresql
     postgresql-server
+
+    # Desktop applications
     steam
     brave-browser
-    copyq
     keepassxc
     foliate
+
+    # Smart card infrastructure
+    pcsc-lite
+    pcsc-lite-ccid
+    pcsc-tools
+    opensc
+    opensc-libs
+    nss-tools
 )
 
 # ------
@@ -55,6 +74,20 @@ done
 echo "==> Installing packages..."
 sudo dnf install -y "${PACKAGES[@]}"
 
+# ----------------
+# Smart card setup
+# ----------------
+
+echo "==> Enabling PC/SC smart card service..."
+
+sudo systemctl enable --now pcscd.socket
+
+echo "==> Smart card infrastructure installed."
+echo "    Reader diagnostics: pcsc_scan"
+echo "    Card identification: opensc-tool -n"
+echo "    PC/SC service: systemctl status pcscd.socket"
+
+
 # ----
 # Rust
 # ----
@@ -63,6 +96,12 @@ echo "==> Installing Rust..."
 
 if ! command -v rustup >/dev/null 2>&1; then
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+fi
+
+source "$HOME/.cargo/env"
+
+if ! command -v cross >/dev/null 2>&1; then
+    cargo install cross
 fi
 
 # ----------
