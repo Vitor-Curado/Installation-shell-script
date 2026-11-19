@@ -21,9 +21,7 @@ PACKAGES=(
 
     # Development utilities
     zoxide
-    nodejs
     code 
-    neovim
 
     # LaTeX
     latexmk
@@ -36,6 +34,7 @@ PACKAGES=(
     # Desktop applications
     steam
     brave-browser
+    chromium
     keepassxc
     foliate
 
