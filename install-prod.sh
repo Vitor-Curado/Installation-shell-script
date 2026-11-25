@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-packages = (
+packages=(
     nginx
     certbot
     python3-certbot-nginx
